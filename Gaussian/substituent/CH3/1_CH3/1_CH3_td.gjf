@@ -1,4 +1,4 @@
-%chk=C:\G09W\mine\substituent\mini\mini_1_pp_td.chk
+%chk=1_CH3_opt.chk
 #p td=(nstates=10) b3lyp/6-31g(d) geom=connectivity pop=full scf=tight
 
 Ethylene Geometry Optimization
