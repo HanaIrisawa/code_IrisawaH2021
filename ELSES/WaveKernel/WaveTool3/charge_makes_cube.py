@@ -16,13 +16,13 @@ def Charge_make(real_path, imag_path, out_path):
         set_read1 = " "+set_read1
         set_read1 = set_read1.rstrip()
         set_read1 = re.sub("\n", "", set_read1)
-        set_read1 = re.split(" *", set_read1)
+        set_read1 = set_read1.split()
         set_list1.append(set_read1)
-
-    atom_number = abs(int(set_list1[2][1]))
-    x_meshsize = int(set_list1[3][1])
-    y_meshsize = int(set_list1[4][1])
-    z_meshsize = int(set_list1[5][1])
+    #print(set_list1)
+    atom_number = abs(int(set_list1[2][0]))
+    x_meshsize = int(set_list1[3][0])
+    y_meshsize = int(set_list1[4][0])
+    z_meshsize = int(set_list1[5][0])
     num_cube_lines = (int(z_meshsize / 6) + 1) * y_meshsize * x_meshsize
     real_fp.seek(0)
 
