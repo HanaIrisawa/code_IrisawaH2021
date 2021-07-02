@@ -1,0 +1,6 @@
+all time 241.1225461959839 
+xyz load time 0.06417989730834961 
+json load time 0.057140350341796875 
+make LCAO time 0.23085570335388184 
+elses-generate-cubefile time 190.88165307044983 
+make charge time 49.88843131065369 
