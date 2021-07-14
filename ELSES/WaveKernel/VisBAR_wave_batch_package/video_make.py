@@ -7,7 +7,7 @@ import time
 
 #parameta
 frame_size = -1  #FHD=0, 4K=1
-frame_rate = 30.0  #FPS
+frame_rate = 25.0  #FPS
 
 
 #size set
