@@ -12,96 +12,99 @@ import math,shutil
 #########################################
 def setting_read():
     files = os.listdir(prog_dir_path)
-    if "visbar_wb_setting_default.txt" in files >= 0:
-        try:
-            setting_file_name = prog_dir_path + "/visbar_wb_setting_default.txt"
-        except:
-            setting_file_name = prog_dir_path + "\visbar_wb_setting_default.txt"
+    for filenametxt in files :
+        if filenametxt.find("visbar_wb_setting_default.txt") >= 0:
+            try:
+                setting_file_name = prog_dir_path + "/visbar_wb_setting_default.txt"
+            except:
+                setting_file_name = prog_dir_path + "\visbar_wb_setting_default.txt"
 
-    ###############################################
-        f = open(setting_file_name,'r')
-        a=1
-        cnt=0
-        dic={}
-        while True:
-            findsharp=-1
-            line = f.readline()
-            if line.find("--end_setting--") >=0 :
-                break
-            ####################################
-            all_line=[]
-            line = line.replace("\t"," ")
-            line = line.rstrip()
-            line = re.sub("\n","",line)
-
-            line = re.split(" *",line)
-
-            ####################################
-            if line[0] == "":
-                continue
-            if line[0].find("#") >=0:
-                continue
-            ####################################
-            all_line += line
-            del all_line[0]
-            for i in range(0,len(all_line)):
-                if all_line[i].find("#") >=0:
-                    findsharp=i
-            if findsharp >=0:
-                del all_line[findsharp:]
-                if len(all_line) ==0:
-                    print("Dictionary isn't possible" +" "+ "["+line[0]+"]")
-                    continue
-            ###################################
-            para=[]
-            para += all_line
-            dic[line[0]]=para
-        f.close()
-        pwd = os.getcwd()
-        pwd_files = os.listdir(pwd)
-        if "visbar_wb_setting.txt" in pwd_files >= 0:
-            setting_file_name = "visbar_wb_setting.txt"
     ###############################################
             f = open(setting_file_name,'r')
             a=1
             cnt=0
-            dic2={}
+            dic={}
             while True:
                 findsharp=-1
                 line = f.readline()
+                #line = f.read()
                 if line.find("--end_setting--") >=0 :
                     break
-                ####################################
+            ####################################
                 all_line=[]
                 line = line.replace("\t"," ")
                 line = line.rstrip()
                 line = re.sub("\n","",line)
-
-                line = re.split(" *",line)
-
-                ####################################
-                if line[0] == "":
+                #line = re.split(" *",line)
+                line = line.split()
+                #print(line)
+            ####################################
+                if len(line) == 0:
                     continue
                 if line[0].find("#") >=0:
                     continue
-                ####################################
+            ####################################
                 all_line += line
                 del all_line[0]
                 for i in range(0,len(all_line)):
-                    if all_line[i].find("#") >=0:
-                        findsharp=i
+                        if all_line[i].find("#") >=0:
+                            findsharp=i
                 if findsharp >=0:
                     del all_line[findsharp:]
                     if len(all_line) ==0:
                         print("Dictionary isn't possible" +" "+ "["+line[0]+"]")
                         continue
-                ###################################
+            ###################################
                 para=[]
                 para += all_line
-                dic2[line[0]]=para
-                dic.update(dic2)
-    del files,para,findsharp,all_line,pwd,pwd_files,a,cnt,setting_file_name
-    return dic
+                dic[line[0]]=para
+            f.close()
+            pwd = os.getcwd()
+            pwd_files = os.listdir(pwd)
+            if "visbar_wb_setting.txt" in pwd_files >= 0:
+                setting_file_name = "visbar_wb_setting.txt"
+    ###############################################
+                f = open(setting_file_name,'r')
+                a=1
+                cnt=0
+                dic2={}
+                while True:
+                    findsharp=-1
+                    line = f.readline()
+                    #line = f.read()
+                    if line.find("--end_setting--") >=0 :
+                        break
+                ####################################
+                    all_line=[]
+                    line = line.replace("\t"," ")
+                    line = line.rstrip()
+                    line = re.sub("\n","",line)
+
+                    #line = re.split(" *",line)
+                    line = line.split()
+                ####################################
+                    if len(line) == 0:
+                        continue
+                    if line[0].find("#") >=0:
+                        continue
+                ####################################
+                    all_line += line
+                    del all_line[0]
+                    for i in range(0,len(all_line)):
+                        if all_line[i].find("#") >=0:
+                            findsharp=i
+                    if findsharp >=0:
+                        del all_line[findsharp:]
+                        if len(all_line) ==0:
+                            print("Dictionary isn't possible" +" "+ "["+line[0]+"]")
+                            continue
+                ###################################
+                    para=[]
+                    para += all_line
+                    dic2[line[0]]=para
+                    dic.update(dic2)
+                del files,para,findsharp,all_line,pwd,pwd_files,a,cnt,setting_file_name
+                return dic
 #########################################################
 def setting_bond():
     try:
@@ -114,16 +117,17 @@ def setting_bond():
     while True:
             findsharp=-1
             line = f.readline()
+            #line = f.read()
             if line.find("--end_setting--") >=0 :
                 break
             all_line=[]
             line = line.replace("\t"," ")
             line = line.rstrip()
             line = re.sub("\n","",line)
-
-            line = re.split(" *",line)
+            #line = re.split(" *",line)
+            line = line.split()
             ####################################
-            if line[0] == "":
+            if len(line) == 0:
                 continue
             if line[0].find("#") >=0:
                 continue
@@ -140,8 +144,10 @@ def setting_bond():
                     continue
             ###################################
             dic[line[0],line[1]]=line[2]
-    f.close()
-    del all_line,findsharp,a,cnt,line
+    #f.close()
+            #del all_line,findsharp,a,cnt,line
+            del all_line,findsharp,line
+    del a,cnt
     return dic
 ##############################################################
 
@@ -151,10 +157,16 @@ if prog_dir_path == "":
 read=setting_read()
 read_bond=setting_bond()
 save_step = 0
-isovalue=float(read["IsoValuePositive"][0])
-stableiso=float(read["IsoValuePositive"][0])
-isovalueminus=float(read["IsoValueNegative"][0])
-stableisominus=float(read["IsoValueNegative"][0])
+##############################################################
+with open("visbar_wb_setting_default.txt") as setting:
+    value_seting = setting.read()
+    value_seting = value_seting.split()
+    #print(value_setting)
+##############################################################
+isovalue=float(value_seting[2])
+stableiso=float(value_seting[2])
+isovalueminus=float(value_seting[4])
+stableisominus=float(value_seting[4])
 PositiveLevel=0
 NegativeLevel=0
 def vtk(output_dir,filenametext,Batch_mode,Input_dir):
@@ -194,12 +206,12 @@ def vtk(output_dir,filenametext,Batch_mode,Input_dir):
         out.write('DrawIsoInWirePositive'+' '+ "Off" + '\n')
         out.write('DrawIsoInWireNegative'+' '+ "Off" + '\n')
         out.write('\n' + '#---Color---#' + '\n')
-        out.write('IsoColorPositive'+' '+ str(read["IsoColorPositive"][0])
-                                    +' '+ str(read["IsoColorPositive"][1])
-                                    +' '+ str(read["IsoColorPositive"][2])+ '\n')
-        out.write('IsoColorNegative'+' '+ str(read["IsoColorNegative"][0])
-                                    +' '+ str(read["IsoColorNegative"][1])
-                                    +' '+ str(read["IsoColorNegative"][2])+ '\n')
+        out.write('IsoColorPositive'+' '+ str(value_seting[15])
+                                    +' '+ str(value_seting[16])
+                                    +' '+ str(value_seting[17])+ '\n')
+        out.write('IsoColorNegative'+' '+ str(value_seting[19])
+                                    +' '+ str(value_seting[20])
+                                    +' '+ str(value_seting[21])+ '\n')
         out.write('OutLineColor'+' '+ str( outlineActor.GetProperty().GetAmbientColor()[0])\
                                 +' '+ str( outlineActor.GetProperty().GetAmbientColor()[1])\
                                 +' '+ str( outlineActor.GetProperty().GetAmbientColor()[2])+ '\n')
@@ -266,18 +278,18 @@ def vtk(output_dir,filenametext,Batch_mode,Input_dir):
 
     outlineActor = vtkActor()
     outlineActor.SetMapper(outlineMapper)
-    outlineActor.GetProperty().SetColor(float(read["OutLineColor"][0]),
-                                        float(read["OutLineColor"][1]),
-                                        float(read["OutLineColor"][2]))
+    outlineActor.GetProperty().SetColor(float(value_seting[23]),
+                                        float(value_seting[24]),
+                                        float(value_seting[25]))   #OutLineColor
 
 
   # Color lookup table
-    isominusR=float(read["IsoColorPositive"][0])
-    isominusG=float(read["IsoColorPositive"][1])
-    isominusB=float(read["IsoColorPositive"][2])
-    isoplusR=float(read["IsoColorNegative"][0])
-    isoplusG=float(read["IsoColorNegative"][1])
-    isoplusB=float(read["IsoColorNegative"][2])
+    isominusR=float(value_seting[15])   #IsoColorPositive
+    isominusG=float(value_seting[16])
+    isominusB=float(value_seting[17])
+    isoplusR=float(value_seting[19])   #IsoColorNegative
+    isoplusG=float(value_seting[20])
+    isoplusB=float(value_seting[21])
 
 
 
@@ -332,8 +344,8 @@ def vtk(output_dir,filenametext,Batch_mode,Input_dir):
 
     isosurfaceActor = vtkActor()
     isosurfaceActor.SetMapper(isosurfaceMapper)
-    isosurfaceActor.GetProperty().SetOpacity(float(read["IsoOpacityPositive"][0]))
-    if read["DrawIsoInWirePositive"][0] == "On":
+    isosurfaceActor.GetProperty().SetOpacity(float(value_seting[6]))  #IsoOpacityPositive
+    if value_seting[10] == "On":   #DrawIsoInWirePositive
         isosurfaceActor.GetProperty().SetRepresentationToWireframe()
 
 
@@ -348,16 +360,16 @@ def vtk(output_dir,filenametext,Batch_mode,Input_dir):
 
     isosurfaceminusActor = vtkActor()
     isosurfaceminusActor.SetMapper(isosurfaceminusMapper)
-    isosurfaceminusActor.GetProperty().SetOpacity(float(read["IsoOpacityNegative"][0]))
+    isosurfaceminusActor.GetProperty().SetOpacity(float(value_seting[8]))   #IsoOpacityNegative
 
-    if read["DrawIsoInWireNegative"][0] == "On":
+    if value_seting[12] == "On":    #DrawIsoInWireNegative
         isosurfaceminusActor.GetProperty().SetRepresentationToWireframe()
 
   # Renderer and render window
     ren = vtkRenderer()
-    ren.SetBackground(float(read["BackGroundColor"][0]),
-                      float(read["BackGroundColor"][1]),
-                      float(read["BackGroundColor"][2]))
+    ren.SetBackground(float(value_seting[27]),
+                      float(value_seting[28]),
+                      float(value_seting[29]))    #BackGroundColor
 
 
 
@@ -379,8 +391,10 @@ def vtk(output_dir,filenametext,Batch_mode,Input_dir):
         atom = f.readline()
         atom = atom.rstrip()
         atom = re.sub("\n","",atom)
-        atom = re.split(" *",atom)
+        #atom = re.split(" *",atom)
+        atom = atom.split()
         atom_list +=[atom]
+    #print(atom_list)
     f.close()
   #============================================
 
@@ -406,7 +420,7 @@ def vtk(output_dir,filenametext,Batch_mode,Input_dir):
         actor0.SetMapper(mapper0)
         actor0.GetProperty().SetColor(lib.library[atom_list[k][0]][2][0]/255,lib.library[atom_list[k][0]][2][1]/255,lib.library[atom_list[k][0]][2][2]/255)
       # assign actor to the renderer
-        if read["DrawAtom"][0] == "On":
+        if value_seting[63] == "On":   #DrowAtom
             ren.AddActor(actor0)
 
 ####----------label--------####
@@ -440,7 +454,7 @@ def vtk(output_dir,filenametext,Batch_mode,Input_dir):
     lmapper.SetMargin(3)
     lactor = vtkActor2D()
     lactor.SetMapper(lmapper)
-    if read["DrawAtomLabel"][0] == "On":
+    if value_seting[73] == "On":   #DrawAtomLabel
         ren.AddActor(lactor)
 #==============================================
 
@@ -470,6 +484,7 @@ def vtk(output_dir,filenametext,Batch_mode,Input_dir):
             length =  ((all_atom[j][1] - all_atom[i][1])**2.0\
                       +(all_atom[j][2] - all_atom[i][2])**2.0\
                       +(all_atom[j][3] - all_atom[i][3])**2.0)**0.5
+            #print(read_bond[all_atom[i][0],all_atom[j][0]])
             if length <= float(read_bond[all_atom[i][0],all_atom[j][0]]):
                 radius=0.1
                 res=10
@@ -496,29 +511,29 @@ def vtk(output_dir,filenametext,Batch_mode,Input_dir):
                 actor.RotateWXYZ(theta / math.pi * 180, v[0], v[1], v[2])
       #print "AAA",theta / math.pi * 180, v[0], v[1], v[2]
                 actor.SetPosition(pos)
-                if read["DrawBond"][0] == "On":
+                if value_seting[61] == "On":  #DrawBond
                     ren.AddActor(actor)
     del all_atom
 
 
   #Camera---------------------------------------#
     camera=vtkCamera()
-    camera.SetFocalPoint(float(read["FocalPoint"][0]),
-                         float(read["FocalPoint"][1]),
-                         float(read["FocalPoint"][2]))
-    camera.SetPosition(float(read["CameraPosition"][0]),
-                       float(read["CameraPosition"][1]),
-                       float(read["CameraPosition"][2]))
+    camera.SetFocalPoint(float(value_seting[36]),
+                         float(value_seting[37]),
+                         float(value_seting[38]))
+    camera.SetPosition(float(value_seting[40]),
+                       float(value_seting[41]),
+                       float(value_seting[42]))
     camera.ComputeViewPlaneNormal
-    camera.SetParallelScale(float(read["ParallelScale"][0]))
-    camera.SetViewUp(float(read["ViewUp"][0]),
-                     float(read["ViewUp"][1]),
-                     float(read["ViewUp"][2]))
+    camera.SetParallelScale(float(value_seting[44]))
+    camera.SetViewUp(float(value_seting[46]),
+                     float(value_seting[46]),
+                     float(value_seting[46]))
     camera.UseHorizontalViewAngleOff
-    camera.SetClippingRange(float(read["ClippingRange"][0]),
-                            float(read["ClippingRange"][1]))
+    camera.SetClippingRange(float(value_seting[50]),
+                            float(value_seting[51]))
     ren.SetActiveCamera(camera)
-    if read["WatchParallelView"][0] == "On":
+    if value_seting[75] == "On":   #WatchParallelView
         ren.GetActiveCamera().ParallelProjectionOn()
 
   #create a text actor######################################
@@ -558,10 +573,10 @@ def vtk(output_dir,filenametext,Batch_mode,Input_dir):
   ###########################################################
 
   # Add the actors
-    if read["DrawOutLine"][0] == "On":
+    if value_seting[67] == "On":   #DrawOutline
         ren.AddActor(outlineActor)
     ###############################
-    if read["DrawWaveFunction"][0] == "On":
+    if value_seting[65] == "On":   #DrawWaveFunction
         ren.AddActor(isosurfaceActor)
         ren.AddActor(isosurfaceminusActor)
     ###############################
@@ -574,8 +589,8 @@ def vtk(output_dir,filenametext,Batch_mode,Input_dir):
     renWin.SetWindowName("VisBAR wave batch")
     #renWin.SetSize(float(read["Window_size"][0]),
     #               float(read["Window_size"][1]))
-    renWin.SetSize(int(read["WindowSize"][0]),
-                   int(read["WindowSize"][1]))
+    renWin.SetSize(int(value_seting[32]),
+                   int(value_seting[33]))   #WindowSize
 
     renWin.AddRenderer(ren)
 
@@ -722,7 +737,7 @@ def vtk(output_dir,filenametext,Batch_mode,Input_dir):
         iren.AddObserver("UserEvent", userMethod)
         iren.SetRenderWindow(renWin)
         iren.AddObserver("KeyPressEvent", Keypress)
-        if read["DrawAxis"][0] == "On":
+        if value_seting[69] == "On":   #DrawAxis
             transform = vtkTransform()
             transform.Scale(5,5,5)
             transform.Translate(0.0,0.0,0.0)
@@ -745,7 +760,7 @@ def vtk(output_dir,filenametext,Batch_mode,Input_dir):
         text_widget.SetTextActor(txt)
         text_widget.SelectableOff()
 
-        if read["DrawText"][0] == "On":
+        if value_seting[71] == "On":   #DrawText
             text_widget.On()
 
 
@@ -755,7 +770,7 @@ def vtk(output_dir,filenametext,Batch_mode,Input_dir):
         iren.Start()
 
     elif Batch_mode == True :
-        if read["DrawText"][0] == "On":
+        if value_seting[71] == "On":   #DrawText
             ren.AddActor(txt)
         w2if = vtkWindowToImageFilter()
         w2if.SetInput(renWin)
