@@ -1,6 +1,6 @@
 #---IsoValue---#
-IsoValuePositive 0.02
-IsoValueNegative -0.02
+IsoValuePositive 0.0151607764938
+IsoValueNegative -0.0151607764938
 IsoOpacityPositive 1.0
 IsoOpacityNegative 1.0
 DrawIsoInWirePositive Off
@@ -13,14 +13,14 @@ OutLineColor 0.0 0.0 1.0
 BackGroundColor 1.0 1.0 1.0
 
 #---WindowSize---#
-WindowSize 500 500
+WindowSize 1366 706
 
 #---Camera---#
-FocalPoint 0.0 -0.0382356981252 0.0
-CameraPosition 0.0 -0.0382356981252 45.0
-ParallelScale 10.4748065371
+FocalPoint 69.9006919861 -1.03359031677 -0.39412021637
+CameraPosition 69.9006919861 -1.03359031677 375.893312702
+ParallelScale 45.4333189359
 ViewUp 0.0 1.0 0.0
-ClippingRange 0.01 1000.01
+ClippingRange 335.649153135 428.350282435
 
 #---Label---#
 #NumberOnly:1
@@ -36,6 +36,6 @@ DrawWaveFunction On
 DrawOutLine On
 DrawAxis On
 DrawText On
-DrawAtomLabel On
+DrawAtomLabel Off
 WatchParallelView On
 --end_setting--
